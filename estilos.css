@@ -87,6 +87,204 @@ body {
     color: #000000;
     background-color: #8b863a;
 }
+/*INDEX*/
+#headerindex {
+    background-image: url(img/pizza-fondo.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: solid 1px black;
+    height: 100%;
+}
+
+.fondoindex {
+    background-color: #2d3436;
+    background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
+    height: max-content;
+}
+
+.titulo-index {
+    height: 33%;
+    width: 100%;
+    font-family: "Playfair Display", serif;
+    color: #8b863a;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 70px;
+    animation: fadeIn;
+    animation-duration: 4s;
+}
+
+.subtitulo-index {
+    font-family: "Playfair Display", serif;
+    color: #8b863a;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 25px;
+    animation: fadeIn;
+    animation-duration: 4s;
+}
+
+.barramenu {
+    width: 50%;
+    height: 27%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.barramenu span button {
+    font-family: "Playfair Display", serif;
+    color: #8b863a;
+    text-decoration: none;
+    font-size: 30px;
+    transition: 1s;
+    animation: fadeIn;
+    animation-duration: 4s;
+    padding-top: 20%;
+}
+
+.barramenu span a {
+    font-family: "Playfair Display", serif;
+    color: #8b863a;
+    text-decoration: none;
+    font-size: 30px;
+    transition: 1s;
+    animation: fadeIn;
+    animation-duration: 4s;
+}
+
+.barramenu span a:hover {
+    padding: 5px 10px;
+    background-color: #8b863a;
+    color: black;
+    border-radius: 15px;
+}
+
+.flecha {
+    width: 100%;
+    padding-top: 14%;
+    display: flex;
+    justify-content: center;
+    animation: flechaabajo 1s ease infinite;
+}
+
+.flecha i {
+    font-size: 30px;
+    color: #8b863a;
+}
+
+@keyframes flechaabajo {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(20px);
+    }
+
+    0% {
+        transform: translateY(0);
+    }
+}
+
+.galeriasmart {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    gap: 15px 14px;
+    grid-auto-flow: row;
+    grid-template-areas: "foto1 foto1 foto2""foto3 foto4 foto5""foto6 foto4 foto7";
+    width: 100%;
+    height: 100%;
+    padding: 20px 20px 20px 20px;
+}
+
+.foto1 {
+    grid-area: foto1;
+    background-image: url(img/galeria11.jpg);
+    background-position: center center;
+    background-size: cover;
+    border-radius: 25px;
+    height: 350px;
+    padding: 0 25px 0 25px;
+    box-shadow: 0px 15px 20px #000000;
+}
+
+.foto2 {
+    grid-area: foto2;
+    background-image: url(img/galeria1.jpg);
+    background-position: center center;
+    background-size: cover;
+    border-radius: 25px;
+    height: 350px;
+    padding: 0 25px 0 25px;
+    box-shadow: 0px 15px 20px #000000;
+}
+
+.foto3 {
+    grid-area: foto3;
+    background-image: url(img/galeria2.jpg);
+    background-position: center center;
+    background-size: cover;
+    border-radius: 25px;
+    height: 350px;
+    padding: 0 25px 0 25px;
+    box-shadow: 0px 15px 20px #000000;
+}
+
+.foto4 {
+    grid-area: foto4;
+    background-image: url(img/galeria12.jpg);
+    background-position: center center;
+    background-size: cover;
+    border-radius: 25px;
+    height: 715px;
+    padding: 0 25px 0 25px;
+    box-shadow: 0px 15px 20px #000000;
+}
+
+.foto5 {
+    grid-area: foto5;
+    background-image: url(img/galeria4.jpg);
+    background-position: center center;
+    background-size: cover;
+    border-radius: 25px;
+    height: 350px;
+    padding: 0 25px 0 25px;
+    box-shadow: 0px 15px 20px #000000;
+}
+
+.foto6 {
+    grid-area: foto6;
+    background-image: url(img/galeria3.jpg);
+    background-position: center center;
+    background-size: cover;
+    border-radius: 25px;
+    height: 350px;
+    padding: 0 25px 0 25px;
+    box-shadow: 0px 15px 20px #000000;
+}
+
+.foto7 {
+    grid-area: foto7;
+    background-image: url(img/galeria5.jpg);
+    background-position: center center;
+    background-size: cover;
+    border-radius: 25px;
+    height: 350px;
+    padding: 0 25px 0 25px;
+    box-shadow: 0px 15px 20px #000000;
+}
 
 /* barra */
 .barramenu-menu {

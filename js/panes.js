@@ -1,6 +1,6 @@
 let productosJSON = [];
 let lista;
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let car = JSON.parse(localStorage.getItem("car")) || [];
 
 
 const contenedorProductos = document.getElementById('contenedor-productos');
@@ -12,129 +12,75 @@ window.onload=()=>{
     lista=document.getElementById("milista");
 };
 function agregarACarrito(productoNuevo) {
-    let encontrado = carrito.find(p => p.id == productoNuevo.id);
-    console.log(encontrado);
+    let encontrado = car.find(p => p.id == productoNuevo.id);
     if (encontrado == undefined) {
         let prodACarrito = {
             ...productoNuevo,
             cantidad: 1
         };
-        carrito.push(prodACarrito);
-        console.log(carrito);
-        Swal.fire(
-            'Nuevo producto agregado al carro',
-            productoNuevo.nombre,
-            'success'
-        );
+        car.push(prodACarrito);
+       ;
         //agregamos una nueva fila a la tabla de carrito
         document.getElementById("items").innerHTML += (`
             <tr id='fila${prodACarrito.id}'>
             <td> ${prodACarrito.id} </td>
             <td> ${prodACarrito.nombre}</td>
             <td id='${prodACarrito.id}'> ${prodACarrito.cantidad}</td>
-            <td> ${prodACarrito.precio}</td>
-              <td>$ ${elemento.precio * elemento.cantidad}</td>
-            <td> <button class='btn btn-light' onclick='eliminar(${prodACarrito.id})'>🗑️</button>`);
+            <td>$ ${prodACarrito.precio}</td>
+            <td> <button type="button" class="btn btn-danger" onclick='eliminar(${prodACarrito.id})'><i class="bi bi-trash-fill"></button>`);
+        
     } else {
         //el producto ya existe en el carro
         //pido al carro la posicion del producto 
-        let posicion = carrito.findIndex(p => p.id == productoNuevo.id);
-        console.log(posicion);
-        carrito[posicion].cantidad += 1;
+        let posicion = car.findIndex(p => p.id == productoNuevo.id);
+        
+        car[posicion].cantidad += 1;
         //con querySelector falla
-        document.getElementById(productoNuevo.id).innerHTML = carrito[posicion].cantidad;
+        document.getElementById(productoNuevo.id).innerHTML = car[posicion].cantidad;
     }
     //siempre debo recalcular el total
-    document.getElementById("gastoTotal").innerText = (`Total: $ ${calcularTotal()}`);
-    localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("carrito", JSON.stringify(car));
+    // FINALIZAR COMPRA
+    let finalizar = document.querySelector('#finalizar')
+    finalizar.onclick = () => {
+        Swal.fire({
+            title: 'Orden confirmada!',
+            text: 'Gracias por su compra!',
+            icon: 'success',
+            confirmButtonText: 'Cerrar'
+        })
+        contenedorCarritoDeCompras.innerHTML = "";
+        contenedorFooterDeCarrito.innerHTML = `
+            <th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>
+        `
+    }
+    productosJSON.length == 0 ? contenedorFooterDeCarrito.innerHTML = `
+            <th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>
+        ` : contenedorFooterDeCarrito.innerHTML = `
+          <th scope="row" colspan="5">Total de la compra: $${calcularTotal()}</th>
+         `;
+    
 }
 
 function calcularTotal() {
     let suma = 0;
-    for (const elemento of carrito) {
+    for (const elemento of car) {
         suma = suma + (elemento.precio * elemento.cantidad);
     }
     return suma;
 }
-
+// ELIMINAR PROD
 function eliminar(id) {
-    let indice = carrito.findIndex(prod => prod.id == id);
-    carrito.splice(indice, 1);//eliminando del carro
+    let indice = car.findIndex(prod => prod.id == id);
+    car.splice(indice, 1);//eliminando del carro
     let fila = document.getElementById(`fila${id}`);
-    document.getElementById("tablabody").removeChild(fila);//eliminando de la tabla
+    document.getElementById("items").removeChild(fila);//eliminando de la tabla
     document.getElementById("gastoTotal").innerText = (`Total: $ ${calcularTotal()}`);
-    localStorage.setItem("carrito", JSON.stringify(carrito));
+    localStorage.setItem("car", JSON.stringify(car));
     Swal.fire("Producto eliminado del carro!")
 }
 
-// function agregarACarrito() {
-    
-//     let sumaCarrito = 0;
-//     contenedorCarritoDeCompras.innerHTML = "";
 
-//     productosJSON.forEach(
-//         (elemento) => {
-//             let renglonesCarrito = document.createElement("tr");
-//             renglonesCarrito.innerHTML = `
-//             <td>${elemento.id}</td>
-//             <td>${elemento.nombre}</td>
-//             <td><input id="cantidad-producto-${elemento.id}" type="number" value="${elemento.cantidad}" min="1" max="50" step="1" style="width: 50px;"/></td>
-//             <td>${elemento.precio}</td>
-//              <td>$ ${elemento.precio * elemento.cantidad}</td>
-//             <td><button id="eliminar-producto-${elemento.id}" type="button" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button></td>
-//             `;
-
-//             contenedorCarritoDeCompras.append(renglonesCarrito);
-
-//             sumaCarrito += elemento.cantidad * elemento.precio;
-
-//             //agregamos evento a carrito
-//             let cantidadProductos = document.getElementById(`cantidad-producto-${elemento.id}`);
-
-//             cantidadProductos.addEventListener("change", (e) => {
-//                 alert("estoy agregando mas prodcutos")
-//                 let nuevaCantidad = e.target.value;
-//                 elemento.cantidad = nuevaCantidad;
-//                 agregarACarrito();
-//             });
-
-//             let borrarProducto = document.getElementById(`eliminar-producto-${elemento.id}`);
-
-//             borrarProducto.addEventListener("click", (e) => {
-//                 removerProductoCarrito(elemento);
-//                 agregarACarrito();
-//             });
-            
-//         }
-//     );
-//     // BOTON FINALIZAR COMPRA
-//     let finalizar = document.querySelector('#finalizar')
-//     finalizar.onclick = () => {
-//         Swal.fire({
-//             title: 'Orden confirmada!',
-//             text: 'Gracias por su compra!',
-//             icon: 'success',
-//             confirmButtonText: 'Cerrar'
-//         })
-//         contenedorCarritoDeCompras.innerHTML = "";
-//         contenedorFooterDeCarrito.innerHTML = `
-//             <th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>
-//         `
-//     }
-    
-//     productosJSON.length == 0 ? contenedorFooterDeCarrito.innerHTML = `
-//             <th scope="row" colspan="5">Carrito vacío - comience a comprar!</th>
-//         ` : contenedorFooterDeCarrito.innerHTML = `
-//           <th scope="row" colspan="5">Total de la compra: $${sumaCarrito}</th>
-//          `;
-
-// }
-// function removerProductoCarrito(elementoAEliminar) {
-//     const elementosAMantener = productosJSON.filter((elemento) => elementoAEliminar.id != elemento.id);
-//     productosJSON.length = 0;
-
-//     elementosAMantener.forEach((elemento) => productosJSON.push(elemento));
-// }
 //RENDERIZAR PRODUCTOS
 function renderizarProductos() {
     for (const prod of productosJSON) {
