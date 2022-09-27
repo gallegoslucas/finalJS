@@ -30,7 +30,7 @@
 
     {
         "id": 5,
-        "foto": "./img/Baguette.jpg",
+        "foto": "./img/baguette.jpg",
         "nombre": "Baguette",
         "ingredientes": "",
         "precio": 300
